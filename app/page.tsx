@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import {
   BookOpen,
@@ -10,21 +8,17 @@ import {
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-full">
-
+    <main className="mx-auto w-full max-w-[1600px]">
       {/* HERO */}
-
-      <section className="relative overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-br from-[#121c3d] via-[#11162b] to-[#0c1020] p-10">
-
+      <section className="relative overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-br from-[#121c3d] via-[#11162b] to-[#0c1020] p-5 sm:p-7 lg:p-10">
         <div className="absolute right-[-150px] top-[-150px] h-96 w-96 rounded-full bg-blue-600/20 blur-[120px]" />
 
         <div className="relative">
-
           <p className="mb-4 text-xs uppercase tracking-[0.35em] text-blue-400">
             Atlas • Engineering Workspace
           </p>
 
-          <h1 className="text-6xl font-black">
+          <h1 className="text-4xl font-black sm:text-5xl lg:text-6xl">
             Welcome back,
             <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
               {" "}
@@ -32,48 +26,43 @@ export default function DashboardPage() {
             </span>
           </h1>
 
-          <p className="mt-5 text-xl text-slate-400">
+          <p className="mt-5 text-base text-slate-400 sm:text-lg lg:text-xl">
             BTech Electrical & Electronics Engineering • Semester 1
           </p>
 
-          <div className="mt-10 flex gap-5">
-
+          <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:gap-5">
             <Link
-              href="/tools"
-              className="rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-4 font-semibold transition hover:scale-105"
+              href="/knowledge"
+              className="rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 text-center font-semibold transition hover:scale-105 sm:px-8 sm:py-4"
             >
               ⚡ Open Engineering Hub
             </Link>
 
+            {/* FIXED: Knowledge Hub goes to /knowledge */}
             <Link
               href="/knowledge"
-              className="rounded-xl border border-slate-700 bg-[#111827] px-8 py-4 font-semibold hover:bg-slate-800"
+              className="rounded-xl border border-slate-700 bg-[#111827] px-6 py-3 text-center font-semibold hover:bg-slate-800 sm:px-8 sm:py-4"
             >
               📚 Knowledge Hub
             </Link>
-
           </div>
-
         </div>
-
       </section>
 
-
       {/* QUICK ACTIONS */}
-
-      <h2 className="mt-12 mb-6 text-3xl font-bold">
+      <h2 className="mb-6 mt-10 text-2xl font-bold sm:mt-12 sm:text-3xl">
         Quick Actions
       </h2>
 
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-
+      <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-4">
+        {/* KNOWLEDGE HUB */}
         <Link
           href="/knowledge"
-          className="rounded-3xl border border-slate-800 bg-[#111827] p-8 transition hover:-translate-y-1 hover:border-blue-500"
+          className="rounded-3xl border border-slate-800 bg-[#111827] p-6 transition hover:-translate-y-1 hover:border-blue-500 sm:p-8"
         >
           <BookOpen size={42} className="text-blue-400" />
 
-          <h3 className="mt-6 text-3xl font-bold">
+          <h3 className="mt-6 text-2xl font-bold sm:text-3xl">
             Knowledge Hub
           </h3>
 
@@ -82,85 +71,57 @@ export default function DashboardPage() {
           </p>
         </Link>
 
-
-        <div className="rounded-3xl border border-slate-800 bg-[#111827] p-8">
-
+        {/* PROJECTS */}
+        <div className="rounded-3xl border border-slate-800 bg-[#111827] p-6 sm:p-8">
           <FolderKanban
             size={42}
             className="text-indigo-400"
           />
 
-          <h3 className="mt-6 text-3xl font-bold">
+          <h3 className="mt-6 text-2xl font-bold sm:text-3xl">
             Projects
           </h3>
 
           <p className="mt-3 text-slate-400">
             Manage your work
           </p>
-
         </div>
 
-
-        <div className="rounded-3xl border border-slate-800 bg-[#111827] p-8">
-
+        {/* CALCULATOR */}
+        <div className="rounded-3xl border border-slate-800 bg-[#111827] p-6 sm:p-8">
           <Sigma
             size={42}
             className="text-cyan-400"
           />
 
-          <h3 className="mt-6 text-3xl font-bold">
+          <h3 className="mt-6 text-2xl font-bold sm:text-3xl">
             Calculator
           </h3>
 
           <p className="mt-3 text-slate-400">
             Engineering utilities
           </p>
-
         </div>
 
-
+        {/* SEMESTER NOTES */}
         <Link
           href="/knowledge/notes"
-          className="rounded-3xl border border-slate-800 bg-[#111827] p-8 transition hover:-translate-y-1 hover:border-indigo-500"
+          className="rounded-3xl border border-slate-800 bg-[#111827] p-6 transition hover:-translate-y-1 hover:border-indigo-500 sm:p-8"
         >
-
           <FileText
             size={42}
             className="text-indigo-400"
           />
 
-          <h3 className="mt-6 text-3xl font-bold">
+          <h3 className="mt-6 text-2xl font-bold sm:text-3xl">
             Semester Notes
           </h3>
 
           <p className="mt-3 text-slate-400">
             Browse PDFs
           </p>
-
         </Link>
-
       </div>
-
-
-      {/* SIGNATURE */}
-
-      <footer className="mt-20 pb-8 text-center">
-
-        <div className="mx-auto mb-5 h-px w-24 bg-gradient-to-r from-transparent via-slate-700 to-transparent" />
-
-        <p className="text-sm tracking-wide text-slate-600">
-          Built with curiosity · Crafted by{" "}
-          <span className="font-semibold text-slate-400 transition-all duration-300 hover:text-blue-400 hover:drop-shadow-[0_0_8px_rgba(96,165,250,0.5)]">
-            Anfus
-          </span>
-        </p>
-
-        <p className="mt-2 text-[10px] font-medium uppercase tracking-[0.35em] text-slate-700">
-          ATLAS · 2026
-        </p>
-
-      </footer>
-
-    </div>
+    </main>
   );
 }
