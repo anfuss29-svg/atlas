@@ -10,7 +10,7 @@ import {
 
 export default function DashboardPage() {
   return (
-    <main className="min-h-screen bg-[#070B14] pl-80 pr-10 pt-24 text-white">
+    <div className="min-h-full">
 
       {/* HERO */}
 
@@ -58,6 +58,7 @@ export default function DashboardPage() {
 
       </section>
 
+
       {/* QUICK ACTIONS */}
 
       <h2 className="mt-12 mb-6 text-3xl font-bold">
@@ -81,6 +82,7 @@ export default function DashboardPage() {
           </p>
         </Link>
 
+
         <div className="rounded-3xl border border-slate-800 bg-[#111827] p-8">
 
           <FolderKanban
@@ -98,6 +100,7 @@ export default function DashboardPage() {
 
         </div>
 
+
         <div className="rounded-3xl border border-slate-800 bg-[#111827] p-8">
 
           <Sigma
@@ -114,6 +117,7 @@ export default function DashboardPage() {
           </p>
 
         </div>
+
 
         <Link
           href="/knowledge/notes"
@@ -137,6 +141,26 @@ export default function DashboardPage() {
 
       </div>
 
-    </main>
+
+      {/* SIGNATURE */}
+
+      <footer className="mt-20 pb-8 text-center">
+
+        <div className="mx-auto mb-5 h-px w-24 bg-gradient-to-r from-transparent via-slate-700 to-transparent" />
+
+        <p className="text-sm tracking-wide text-slate-600">
+          Built with curiosity · Crafted by{" "}
+          <span className="font-semibold text-slate-400 transition-all duration-300 hover:text-blue-400 hover:drop-shadow-[0_0_8px_rgba(96,165,250,0.5)]">
+            Anfus
+          </span>
+        </p>
+
+        <p className="mt-2 text-[10px] font-medium uppercase tracking-[0.35em] text-slate-700">
+          ATLAS · 2026
+        </p>
+
+      </footer>
+
+    </div>
   );
 }
