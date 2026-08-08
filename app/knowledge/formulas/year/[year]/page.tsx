@@ -1,40 +1,43 @@
 import Link from "next/link";
 
-export default function FormulaPage() {
-  const years = [
-    "Year 1",
-    "Year 2",
-    "Year 3",
-    "Year 4",
-  ];
+export default async function FormulaYearPage({
+  params,
+}: {
+  params: Promise<{
+    year: string;
+  }>;
+}) {
+  const { year } = await params;
+
+  const yearNumber = Number(year);
 
   return (
     <div>
       <h1 className="mb-3 text-5xl font-black text-white">
-        Formula Sheets
+        Year {yearNumber}
       </h1>
 
       <p className="mb-10 text-slate-400">
-        Quick-reference formulas organized by year, semester, and subject.
+        Select a semester to browse formula sheets.
       </p>
 
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-        {years.map((year, index) => (
+      <div className="grid gap-6 md:grid-cols-2">
+        {[1, 2].map((semester) => (
           <Link
-            key={year}
-            href={`/knowledge/formulas/year/${index + 1}`}
+            key={semester}
+            href={`/knowledge/formulas/year/${yearNumber}/semester/${semester}`}
             className="rounded-3xl border border-slate-800 bg-[#111827] p-8 transition hover:-translate-y-1 hover:border-emerald-500"
           >
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/10 text-2xl">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/10 text-2xl text-emerald-400">
               Σ
             </div>
 
             <h2 className="mt-6 text-3xl font-bold text-white">
-              {year}
+              Semester {semester}
             </h2>
 
             <p className="mt-3 text-slate-400">
-              Browse semesters
+              Browse subjects
             </p>
 
             <p className="mt-5 text-sm font-semibold text-emerald-400">

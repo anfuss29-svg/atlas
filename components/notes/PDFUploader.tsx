@@ -15,11 +15,15 @@ export default function PDFUploader({
   semester: number;
   subject: string;
   module?: number;
-  type?: "notes" | "pyq";
+  type?: "notes" | "pyq" | "books" | "formulas";
 }) {
   const [title, setTitle] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const isBooks = type === "books";
+  const isPYQ = type === "pyq";
+  const isFormulas = type === "formulas";
 
   async function handleUpload() {
     if (!title.trim()) {
@@ -32,29 +36,27 @@ export default function PDFUploader({
       return;
     }
 
-    if (type === "notes" && module === undefined) {
-      alert("Module is required for Notes.");
-      return;
-    }
-
     setLoading(true);
 
     try {
-      const table = type === "pyq" ? "pyq" : "notes";
+      const table = isBooks
+        ? "books"
+        : isPYQ
+        ? "pyq"
+        : isFormulas
+        ? "formulas"
+        : "notes";
 
-      let path: string;
-
-      if (type === "pyq") {
-        path = `pyq/Year-${year}/Semester-${semester}/${subject}/${Date.now()}-${file.name}`;
-      } else {
-        path = `notes/Year-${year}/Semester-${semester}/${subject}/Module-${module}/${Date.now()}-${file.name}`;
-      }
+      const path =
+        isBooks || isFormulas
+          ? `${type}/Year-${year}/Semester-${semester}/${subject}/${Date.now()}-${file.name}`
+          : `${type}/Year-${year}/Semester-${semester}/${subject}/Module-${module}/${Date.now()}-${file.name}`;
 
       const fileUrl = await uploadPDF(file, path);
 
       let insertData;
 
-      if (type === "pyq") {
+      if (isBooks || isFormulas) {
         insertData = {
           title: title.trim(),
           year,
@@ -73,7 +75,9 @@ export default function PDFUploader({
         };
       }
 
-      const { error } = await supabase
+      const db = supabase as any;
+
+      const { error } = await db
         .from(table)
         .insert(insertData);
 
@@ -81,20 +85,37 @@ export default function PDFUploader({
         throw error;
       }
 
-      alert("PDF uploaded successfully!");
+      alert(
+        isBooks
+          ? "Book uploaded successfully!"
+          : isPYQ
+          ? "PYQ uploaded successfully!"
+          : isFormulas
+          ? "Formula sheet uploaded successfully!"
+          : "PDF uploaded successfully!"
+      );
 
       location.reload();
     } catch (err: any) {
-      alert(err.message);
+      console.error(err);
+      alert(err?.message || "Something went wrong while uploading.");
     } finally {
       setLoading(false);
     }
   }
 
+  const uploadType = isBooks
+    ? "Book"
+    : isPYQ
+    ? "PYQ"
+    : isFormulas
+    ? "Formula Sheet"
+    : "Notes";
+
   return (
     <div>
-      <h2 className="mb-6 text-3xl font-bold">
-        Upload {type === "pyq" ? "PYQ" : "Notes"} PDF
+      <h2 className="mb-6 text-3xl font-bold text-white">
+        Upload {uploadType} PDF
       </h2>
 
       <div className="mb-5 rounded-xl bg-[#1B2235] p-4 text-sm text-slate-300">
@@ -110,7 +131,7 @@ export default function PDFUploader({
           <strong>Subject:</strong> {subject}
         </p>
 
-        {type === "notes" && (
+        {!isBooks && !isFormulas && (
           <p>
             <strong>Module:</strong> {module}
           </p>
@@ -120,8 +141,12 @@ export default function PDFUploader({
       <input
         type="text"
         placeholder={
-          type === "pyq"
+          isBooks
+            ? "Title (e.g. Electrical Engineering Textbook)"
+            : isPYQ
             ? "Title (e.g. KTU S1 2025 PYQ)"
+            : isFormulas
+            ? "Title (e.g. Important Formulas)"
             : "Title (e.g. Class Notes)"
         }
         value={title}
@@ -132,14 +157,22 @@ export default function PDFUploader({
       <input
         type="file"
         accept="application/pdf"
-        onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+        onChange={(e) =>
+          setFile(e.target.files?.[0] ?? null)
+        }
         className="mb-5 w-full rounded-xl bg-[#1B2235] p-4 text-slate-300"
       />
 
       <button
         onClick={handleUpload}
         disabled={loading}
-        className="rounded-xl bg-blue-600 px-6 py-3 font-bold transition hover:bg-blue-500 disabled:opacity-50"
+        className={`rounded-xl px-6 py-3 font-bold transition disabled:opacity-50 ${
+          isBooks
+            ? "bg-orange-600 hover:bg-orange-500"
+            : isFormulas
+            ? "bg-emerald-600 hover:bg-emerald-500"
+            : "bg-blue-600 hover:bg-blue-500"
+        }`}
       >
         {loading ? "Uploading..." : "Upload PDF"}
       </button>

@@ -39,7 +39,7 @@ export default function DashboardPage() {
           <div className="mt-10 flex gap-5">
 
             <Link
-              href="/knowledge"
+              href="/tools"
               className="rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-4 font-semibold transition hover:scale-105"
             >
               ⚡ Open Engineering Hub
