@@ -33,9 +33,9 @@ export default function Sidebar() {
       icon: "📚",
     },
     {
-      name: "Projects",
-      href: "/projects",
-      icon: "◈",
+      name: "Focus Study",
+      href: "/focus",
+      icon: "🌱",
     },
     {
       name: "Calculator",
