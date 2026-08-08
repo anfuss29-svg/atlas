@@ -4,3 +4,46 @@ body {
   background-color: #070b14;
   color: #e2e8f0;
 }
+
+/* ================================
+   ATLAS RESPONSIVE FOUNDATION
+   ================================ */
+
+html {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+/* Prevent long filenames, subjects and titles from breaking layouts */
+* {
+  min-width: 0;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+}
+
+/* Better mobile tap behavior */
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Mobile scrollbar */
+@media (max-width: 1023px) {
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+  }
+}

@@ -5,10 +5,6 @@ import "./globals.css";
 import Sidebar from "@/components/layout/Sidebar";
 import Topbar from "@/components/layout/Topbar";
 
-import {
-  SidebarProvider,
-} from "@/components/layout/SidebarContext";
-
 export const metadata: Metadata = {
   title: "ATLAS | Engineering Workspace",
   description: "Your engineering copilot and workspace",
@@ -21,33 +17,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <body className="flex min-h-screen w-full bg-[#070b14] text-slate-200 overflow-x-hidden font-sans antialiased">
+        <Sidebar />
 
-      <body className="bg-[#070b14] text-slate-200">
+        <div className="flex min-h-screen min-w-0 flex-1 flex-col">
+          <Topbar />
 
-        <SidebarProvider>
-
-          <div className="flex h-screen">
-
-            <Sidebar />
-
-            <div className="flex flex-1 flex-col overflow-hidden">
-
-              <Topbar />
-
-              <main className="flex-1 overflow-y-auto bg-[#070b14] p-8">
-
-                {children}
-
-              </main>
-
-            </div>
-
-          </div>
-
-        </SidebarProvider>
-
+          <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+            {children}
+          </main>
+        </div>
       </body>
-
     </html>
   );
 }
