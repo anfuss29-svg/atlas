@@ -37,3 +37,27 @@ export async function getNotes(
 
   return data as Note[];
 }
+
+export async function searchNotes(search: string): Promise<Note[]> {
+  const term = search.trim();
+
+  if (!term) {
+    return [];
+  }
+
+  const { data, error } = await supabase
+    .from("notes")
+    .select("*")
+    .or(
+      `title.ilike.%${term}%,subject.ilike.%${term}%,module.ilike.%${term}%`
+    )
+    .order("created_at", { ascending: false })
+    .limit(20);
+
+  if (error) {
+    console.error(error);
+    return [];
+  }
+
+  return data as Note[];
+}

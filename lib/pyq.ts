@@ -21,3 +21,27 @@ export async function getPYQs(
 
   return data as PYQ[];
 }
+
+export async function searchPYQs(search: string): Promise<PYQ[]> {
+  const term = search.trim();
+
+  if (!term) {
+    return [];
+  }
+
+  const { data, error } = await supabase
+    .from("pyq")
+    .select("*")
+    .or(
+      `title.ilike.%${term}%,subject.ilike.%${term}%`
+    )
+    .order("created_at", { ascending: false })
+    .limit(20);
+
+  if (error) {
+    console.error(error);
+    return [];
+  }
+
+  return data as PYQ[];
+}
