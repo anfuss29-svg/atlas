@@ -17,42 +17,16 @@ export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(true);
 
   const navItems = [
-    {
-      name: "Dashboard",
-      href: "/",
-      icon: "⬡",
-    },
-    {
-      name: "Engineering Hub",
-      href: "/tools",
-      icon: "⚡",
-    },
-    {
-      name: "Knowledge Hub",
-      href: "/knowledge",
-      icon: "📚",
-    },
-    {
-      name: "Focus Study",
-      href: "/focus",
-      icon: "🌱",
-    },
-    {
-      name: "Calculator",
-      href: "/calculator",
-      icon: "∑",
-    },
-    {
-      name: "Profile",
-      href: "/profile",
-      icon: "◉",
-    },
-    {
-      name: "Settings",
-      href: "/settings",
-      icon: "⚙",
-    },
-  ];
+  { name: "Dashboard", href: "/", icon: "⬡" },
+  { name: "Engineering Hub", href: "/tools", icon: "⚡" },
+  { name: "Knowledge Hub", href: "/knowledge", icon: "📚" },
+  { name: "Focus Study", href: "/focus", icon: "🌱" },
+  { name: "Tasks", href: "/tasks", icon: "✓" },
+  { name: "Projects", href: "/projects", icon: "◈" },
+  { name: "Calculator", href: "/calculator", icon: "∑" },
+  { name: "Profile", href: "/profile", icon: "◉" },
+  { name: "Settings", href: "/settings", icon: "⚙" },
+];
 
   const sidebarWidth = collapsed ? "w-20" : "w-72";
 
