@@ -4,7 +4,7 @@ export interface Note {
   year: number;
   semester: number;
   subject: string;
-  module: string;
+  module: number;
   file_url: string;
   created_at: string;
 }
