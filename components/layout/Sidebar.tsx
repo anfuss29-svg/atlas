@@ -17,18 +17,51 @@ export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(true);
 
   const navItems = [
-    { name: "Dashboard", href: "/", icon: "⬡" },
-    { name: "Engineering Hub", href: "/tools", icon: "⚡" },
-    { name: "Knowledge Hub", href: "/knowledge", icon: "📚" },
-    { name: "Projects", href: "/projects", icon: "◈" },
-    { name: "Calculator", href: "/calculator", icon: "∑" },
-    { name: "Profile", href: "/profile", icon: "◉" },
-    { name: "Settings", href: "/settings", icon: "⚙" },
+    {
+      name: "Dashboard",
+      href: "/",
+      icon: "⬡",
+    },
+    {
+      name: "Engineering Hub",
+      href: "/tools",
+      icon: "⚡",
+    },
+    {
+      name: "Knowledge Hub",
+      href: "/knowledge",
+      icon: "📚",
+    },
+    {
+      name: "Projects",
+      href: "/projects",
+      icon: "◈",
+    },
+    {
+      name: "Calculator",
+      href: "/calculator",
+      icon: "∑",
+    },
+    {
+      name: "Profile",
+      href: "/profile",
+      icon: "◉",
+    },
+    {
+      name: "Settings",
+      href: "/settings",
+      icon: "⚙",
+    },
   ];
+
+  const sidebarWidth = collapsed ? "w-20" : "w-72";
 
   return (
     <>
+      {/* ========================================================= */}
       {/* MOBILE MENU BUTTON */}
+      {/* ========================================================= */}
+
       <button
         type="button"
         onClick={() => setMobileOpen(true)}
@@ -38,36 +71,50 @@ export default function Sidebar() {
         <Menu size={22} />
       </button>
 
+      {/* ========================================================= */}
       {/* MOBILE BACKDROP */}
+      {/* ========================================================= */}
+
       {mobileOpen && (
         <button
           type="button"
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
           onClick={() => setMobileOpen(false)}
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
           aria-label="Close menu"
         />
       )}
 
+      {/* ========================================================= */}
       {/* SIDEBAR */}
+      {/* ========================================================= */}
+
       <aside
         className={`
-          fixed inset-y-0 left-0 z-50 flex flex-col
-          border-r border-slate-800 bg-[#070b14]
+          fixed inset-y-0 left-0 z-50
+          flex flex-col
+          border-r border-slate-800
+          bg-[#070b14]
           shadow-2xl
           transition-all duration-300 ease-out
 
-          lg:static lg:z-auto lg:translate-x-0 lg:shadow-none
-
-          ${collapsed ? "lg:w-20" : "lg:w-72"}
+          ${sidebarWidth}
 
           ${
             mobileOpen
-              ? "translate-x-0 w-[280px]"
-              : "-translate-x-full w-[280px]"
+              ? "translate-x-0"
+              : "-translate-x-full"
           }
+
+          lg:static
+          lg:translate-x-0
+          lg:shadow-none
         `}
       >
+
+        {/* ======================================================= */}
         {/* LOGO */}
+        {/* ======================================================= */}
+
         <div className="border-b border-slate-800 px-4 py-6">
           <div
             className={`flex items-center ${
@@ -76,12 +123,15 @@ export default function Sidebar() {
                 : "justify-between"
             }`}
           >
+
+            {/* LOGO */}
             <Link
               href="/"
               onClick={() => setMobileOpen(false)}
               className="flex items-center gap-4"
-              title={collapsed ? "Atlas" : undefined}
+              title={collapsed ? "ATLAS" : undefined}
             >
+
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 text-xl font-bold text-white shadow-lg">
                 A
               </div>
@@ -97,25 +147,49 @@ export default function Sidebar() {
                   </p>
                 </div>
               )}
+
             </Link>
 
             {/* MOBILE CLOSE */}
             <button
               type="button"
               onClick={() => setMobileOpen(false)}
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-800 hover:text-white lg:hidden"
+              className="ml-3 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-800 hover:text-white lg:hidden"
               aria-label="Close menu"
             >
-              <X size={22} />
+              <X size={21} />
             </button>
+
           </div>
         </div>
 
-        {/* DESKTOP EXPAND / COLLAPSE */}
+        {/* ======================================================= */}
+        {/* COLLAPSE / EXPAND BUTTON */}
+        {/* ======================================================= */}
+
         <button
           type="button"
-          onClick={() => setCollapsed(!collapsed)}
-          className="absolute -right-3 top-20 z-10 hidden h-7 w-7 items-center justify-center rounded-full border border-slate-700 bg-[#0B101E] text-slate-400 shadow-md transition hover:border-blue-500 hover:text-white lg:flex"
+          onClick={() => setCollapsed((prev) => !prev)}
+          className="
+            absolute
+            -right-3
+            top-20
+            z-[70]
+            flex
+            h-7
+            w-7
+            items-center
+            justify-center
+            rounded-full
+            border
+            border-slate-700
+            bg-[#0B101E]
+            text-slate-400
+            shadow-md
+            transition
+            hover:border-blue-500
+            hover:text-white
+          "
           aria-label={
             collapsed
               ? "Expand sidebar"
@@ -129,10 +203,16 @@ export default function Sidebar() {
           )}
         </button>
 
+        {/* ======================================================= */}
         {/* NAVIGATION */}
+        {/* ======================================================= */}
+
         <nav className="flex-1 overflow-y-auto px-3 py-5">
+
           <div className="space-y-2">
+
             {navItems.map((item) => {
+
               const active =
                 item.href === "/"
                   ? pathname === "/"
@@ -143,53 +223,89 @@ export default function Sidebar() {
                   key={item.name}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  title={collapsed ? item.name : undefined}
-                  className={`flex items-center rounded-xl py-3.5 transition-all ${
+                  title={
                     collapsed
-                      ? "justify-center px-2"
-                      : "gap-4 px-4"
-                  } ${
-                    active
-                      ? "border border-blue-500/20 bg-blue-600/10 text-blue-400"
-                      : "text-slate-400 hover:bg-slate-800/50 hover:text-white"
-                  }`}
+                      ? item.name
+                      : undefined
+                  }
+                  className={`
+                    flex
+                    items-center
+                    rounded-xl
+                    py-3.5
+                    transition-all
+
+                    ${
+                      collapsed
+                        ? "justify-center px-2"
+                        : "gap-4 px-4"
+                    }
+
+                    ${
+                      active
+                        ? "border border-blue-500/20 bg-blue-600/10 text-blue-400"
+                        : "text-slate-400 hover:bg-slate-800/50 hover:text-white"
+                    }
+                  `}
                 >
+
+                  {/* ICON */}
                   <span className="w-6 shrink-0 text-center text-lg">
                     {item.icon}
                   </span>
 
+                  {/* NAME */}
                   {!collapsed && (
                     <span className="text-sm font-medium">
                       {item.name}
                     </span>
                   )}
+
                 </Link>
               );
             })}
+
           </div>
 
+          {/* ===================================================== */}
           {/* AI ASSISTANT */}
+          {/* ===================================================== */}
+
           <div className="mt-8">
+
             <div
-              className={`flex items-center rounded-xl bg-slate-900/40 px-3 py-3 ${
-                collapsed
-                  ? "justify-center"
-                  : "justify-between px-4"
-              }`}
+              className={`
+                flex
+                items-center
+                rounded-xl
+                bg-slate-900/40
+                py-3
+
+                ${
+                  collapsed
+                    ? "justify-center px-2"
+                    : "justify-between px-4"
+                }
+              `}
               title={
                 collapsed
                   ? "AI Assistant — Coming Soon"
                   : undefined
               }
             >
+
               <div className="flex items-center gap-3">
-                <span className="text-lg">✦</span>
+
+                <span className="text-lg">
+                  ✦
+                </span>
 
                 {!collapsed && (
                   <span className="text-sm text-slate-400">
                     AI Assistant
                   </span>
                 )}
+
               </div>
 
               {!collapsed && (
@@ -197,26 +313,54 @@ export default function Sidebar() {
                   SOON
                 </span>
               )}
+
             </div>
+
           </div>
+
         </nav>
 
-        {/* PROFILE */}
+        {/* ======================================================= */}
+        {/* PROFILE + CREATOR CREDIT */}
+        {/* ======================================================= */}
+
         <div className="border-t border-slate-800 p-3">
+
+          {/* PROFILE */}
+
           <div
-            className={`flex items-center rounded-xl py-3 transition hover:bg-slate-800/40 ${
+            className={`
+              flex
+              items-center
+              rounded-xl
+              py-3
+              transition
+              hover:bg-slate-800/40
+
+              ${
+                collapsed
+                  ? "justify-center px-2"
+                  : "gap-3 px-3"
+              }
+            `}
+            title={
               collapsed
-                ? "justify-center px-2"
-                : "gap-3 px-3"
-            }`}
-            title={collapsed ? "Anfus" : undefined}
+                ? "Anfus • EEE • Semester 1"
+                : undefined
+            }
           >
+
+            {/* AVATAR */}
+
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 font-bold text-white">
               A
             </div>
 
+            {/* PROFILE DETAILS */}
+
             {!collapsed && (
               <div className="min-w-0">
+
                 <p className="truncate text-sm font-semibold text-white">
                   Anfus
                 </p>
@@ -224,10 +368,51 @@ export default function Sidebar() {
                 <p className="truncate text-xs text-slate-500">
                   EEE • Semester 1
                 </p>
+
               </div>
             )}
+
           </div>
+
+          {/* ===================================================== */}
+          {/* CREATOR CREDIT */}
+          {/* ===================================================== */}
+
+          <div
+            className={`
+              mt-3
+              border-t
+              border-slate-800/60
+              pt-3
+              text-center
+            `}
+          >
+
+            {collapsed ? (
+
+              <span
+                title="Atlas • Crafted by Anfus • © 2026"
+                className="text-[10px] font-semibold tracking-[0.18em] text-slate-600"
+              >
+                AS
+              </span>
+
+            ) : (
+
+              <p className="text-[10px] tracking-wide text-slate-600">
+                Atlas · crafted by{" "}
+                <span className="font-semibold text-slate-500">
+                  Anfus
+                </span>{" "}
+                · © 2026
+              </p>
+
+            )}
+
+          </div>
+
         </div>
+
       </aside>
     </>
   );
